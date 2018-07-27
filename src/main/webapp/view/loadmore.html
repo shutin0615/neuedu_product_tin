@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        #container {
+            width: 400px;
+            height: 200px;
+            overflow: scroll;
+
+            border: 1px springgreen solid;
+        }
+
+        .add-loading {
+            background-image: url(../resources/img/loading-1.gif);
+            background-repeat: no-repeat;
+            background-position: center;
+            /*background-size: cover;*/
+
+        }
+
+        .size {
+            min-height: 40px;
+            width: auto;
+            margin: 10px;
+            background-color: #f7e1b5;
+
+            color: #212121;
+            font-family: 微软雅黑;
+            font-size: 20px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<div id="container">
+</div>
+
+</body>
+</html>
+
+<script src="../js/jquery-3.3.1.js"></script>
+<script>
+
+    $(function(){
+
+        var pageNo = 1;
+
+        $("#container").scroll(function(){
+            //可视区域高度
+            var height = $(this).height();
+
+            //该层可滚动的总高度 .
+            var scrollHeight = Math.round($(this)[0].scrollHeight);
+
+            //卷动高度
+           var scrollTop = Math.round($(this).scrollTop());
+
+           if( (height + scrollTop ) >=  scrollHeight  ) {
+               // console.log("end : " +height +" , "+scrollTop +" : " + scrollHeight)
+               $.ajax({
+                   // async : false,
+                   type : 'post',
+                   url : 'http://localhost:8080/Serverlet01/view/product' ,
+                   data : {
+                	   operation :'2',
+                       pageNo :  pageNo++
+                   } ,
+                   dataType : 'json' ,
+                   success : function(data) {
+                       console.log(pageNo);
+                       console.log(result)
+                       if(data.length !=0) {
+                           $("#container").removeClass('add-loading')
+                           $.each(result , function(i,e){
+                               var item = $("<div>"+e.data+"</div>")
+                               item.addClass('size');
+                               $("#container").append(item);
+                           })
+                       } else {
+                           console.log("data : null~~~~~~~~")
+                       }
+                   } ,
+                   beforeSend : function() {
+                       $("#container").removeClass('add-loading')
+                   }
+               })
+
+
+
+           }
+
+
+
+        })
+
+
+        //第一次进入页面后显示信息
+        $.ajax({
+            type : 'post',
+            url : 'http://localhost:8080/Serverlet01/view/product' ,
+            data : {
+            	operation : '2' ,
+                pageNo :  1
+            } ,
+            dataType : 'json' ,
+            success : function(result) {
+                pageNo++;
+                $("#container").removeClass('add-loading')
+                $.each(result , function(i,e){
+                    var item = $("<div>"+e.data+"</div>")
+                    item.addClass('size');
+                    $("#container").append(item);
+                })
+            }
+        })
+
+
+    })
+
+
+</script>
