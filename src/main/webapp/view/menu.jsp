@@ -22,7 +22,7 @@
 				/*去除项目符号*/
 				list-style: none;
 				/*为ul设置一个背景颜色*/
-				background-color: #6495ED;
+				background-color: cornflowerblue;
 				/*设置一个宽度*/
 				/*
 				 * 在IE6中，如果为元素指定了一个宽度，则会默认开启hasLayout

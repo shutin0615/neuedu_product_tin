@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.OrderItemDao">
+
+    <select id="findOrderItem" resultType="com.neuedu.entity.UserOrderItem" >
+        SELECT * FROM userorderitem
+        /*  parameterType="com.neuedu.entity.UserOrderItem"*/
+    </select>
+
+    <insert id="addOrderItem" parameterType="list" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+
+        INSERT INTO userorderitem(order_no,user_id,product_id,product_name,product_image,current_unit_price,quantity,total_price,create_time,update_time)VALUES
+        <foreach collection="list" item="item"  separator="," >
+            (#{item.order_no},#{item.user_id},#{item.product_id},#{item.product_name},#{item.product_image},#{item.current_unit_price},#{item.quantity},#{item.total_price},now(),now())
+
+        </foreach>
+    </insert>
+
+</mapper>

@@ -10,6 +10,18 @@ public class UserOrderItem implements Serializable {
 	private int product_id;// 商品id
 	private String product_name;// 商品名字
 	private String product_image;// 商品图片
+
+	public UserOrderItem(int id, int user_id, int product_id, String product_name, String product_image, int quantity, long create_time, long update_time) {
+		this.id = id;
+		this.user_id = user_id;
+		this.product_id = product_id;
+		this.product_name = product_name;
+		this.product_image = product_image;
+		this.quantity = quantity;
+		this.create_time = create_time;
+		this.update_time = update_time;
+	}
+
 	private double current_unit_price;// 生成订单时的价格
 	private int quantity;// 商品数量
 	private double total_price; // 总价

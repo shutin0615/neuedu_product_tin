@@ -1,0 +1,51 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.neuedu.dao.CartDao">
+
+    <resultMap id="cart_resultMap" type="com.neuedu.entity.Cart" autoMapping="true">
+
+       <!-- <id property="id" column="id"></id>
+        <result property="num" column="num"></result>-->
+
+          <association property="product" javaType="com.neuedu.entity.Product" column="productid" autoMapping="true">
+
+              <id property="id" column="productid"></id>
+              <!--<result property="name" column="name"></result>
+              <result property="detail" column="detail"></result>
+              <result property="price" column="price"></result>
+              <result property="image" column="image"></result>
+              <result property="stock" column="stock"></result>-->
+
+          </association>
+
+    </resultMap>
+    
+    <select id="findCart" resultMap="cart_resultMap" >
+        SELECT c.id,c.productid productid,c.num num,p.name name,p.detail detail,p.price price,p.image image,p.stock stock FROM cart c
+        LEFT JOIN product p
+        on c.productid=p.id
+    </select>
+
+    <delete id="deleteCart" parameterType="int">
+        DELETE FROM cart WHERE id=#{id}
+    </delete>
+
+    <insert id="addCart"  parameterType="com.neuedu.entity.Cart" statementType="PREPARED">
+        INSERT INTO cart (productid,num)VALUES(#{product.id},#{num})
+    </insert>
+
+    <update id="updateCart"  parameterType="com.neuedu.entity.Cart">
+        UPDATE cart SET num=#{num} WHERE id=#{id}
+    </update>
+
+    <select id="findCartById" resultType="com.neuedu.entity.Cart" parameterType="int">
+        SELECT * FROM cart WHERE id=#{id}
+    </select>
+
+<delete id="clearCart">
+    DELETE FROM cart;
+</delete>
+</mapper>

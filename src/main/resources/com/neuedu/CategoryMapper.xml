@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.neuedu.entity.Category">
+
+    <select id="findCategory" resultType="com.neuedu.entity.Category" >
+        SELECT * FROM Category
+    </select>
+
+    <delete id="deleteCategory" parameterType="int">
+        DELETE FROM Category WHERE id=#{id}
+    </delete>
+
+    <insert id="addCategory"  parameterType="com.neuedu.entity.Category">
+        INSERT INTO product(name,detail,price,image,stock)VALUES (#{name},#{detail},#{price},#{image},#{stock})
+    </insert>
+
+    <update id="updateCategory"  parameterType="com.neuedu.entity.Category">
+        UPDATE Category SET name=#{name},detail=#{detail},price=#{price},image=#{image},stock=#{stock} WHERE id=#{id}
+    </update>
+
+    <select id="findCategoryById" resultType="com.neuedu.entity.Category" parameterType="int">
+        SELECT * FROM Category WHERE id=#{id}
+    </select>
+
+
+</mapper>
+
+        <!-- resultType返回值类型-->

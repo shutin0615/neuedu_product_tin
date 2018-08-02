@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import com.google.gson.Gson;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.Product;
 import com.neuedu.service.CartService;
@@ -62,7 +63,7 @@ public class CartServlet extends HttpServlet {
 		return cs.updateCart(cart);
 	}
 	private void updateCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = 0;
+		int num =0;
 		int id =0;
 		try {
 			
@@ -189,18 +190,46 @@ public class CartServlet extends HttpServlet {
 	 * JSPҳ��鿴���ﳵ��Ϣ
 	 * */
 	public void findCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.setContentType("text/html;charset=utf-8");
+		System.out.println("方法执行了");
+		/*response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		PrintWriter pw = response.getWriter();
 		System.out.println("=================");
 		List<Cart> carts = cs.findCart();
 		request.setAttribute("carts", carts);
-		request.getRequestDispatcher("findcart.jsp").forward(request, response);
-		
-	
-	
-		
+		request.getRequestDispatcher("findcart.jsp").forward(request, response);*/
+
+		String methed = request.getParameter("methed");
+		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+
+		PrintWriter pw = response.getWriter();
+
+		CartService cs = new CartServiceImpl();
+		List<Cart> carts = cs.findCart();
+		String callback=request.getParameter("callback");
+		Gson gson = new Gson();
+		String json = gson.toJson(carts);
+		pw.write(callback+"("+json+")");
+
+
+	  /*String methed = request.getParameter("methed");
+		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		System.out.println("=================");
+		CartService cs = new CartServiceImpl();
+		List<Cart> carts = cs.findCart();
+
+		String callback = request.getParameter("callback");
+
+		PrintWriter pw = response.getWriter();
+		Gson gson = new Gson();
+		String result = gson.toJson(carts);
+		System.out.println(result);
+		pw.println(callback+"("+result+")");*/
+
+
+
 	}
 
 	

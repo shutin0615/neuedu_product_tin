@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-
 import com.neuedu.dao.ProductDao;
 import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
@@ -19,13 +17,13 @@ public class productDaoMySql implements ProductDao {
 	
 	
 	public boolean addProduct(Product product) {
-		//temp1 ��������
+		//temp1 ????????
 		Connection coon = null;
 		PreparedStatement st = null;
 		
 	
 		try {
-			System.out.println("�����������");
+			System.out.println("???????????");
 			coon = DButils.getConnection();
 			
 			String name = product.getName();
@@ -40,7 +38,7 @@ public class productDaoMySql implements ProductDao {
 			st.setString(4,image);
 			st.setInt(5, product.getStock());
 			st.execute();
-			System.out.println("Sql���ִ����ϣ�");
+			System.out.println("Sql??????????");
 			
 		} catch (SQLException e) {
 			
@@ -60,7 +58,7 @@ public class productDaoMySql implements ProductDao {
 	
 	
 	/*
-	 * �鿴����=============
+	 * ??????=============
 	 * 
 	 * */
 	
@@ -70,18 +68,18 @@ public class productDaoMySql implements ProductDao {
 			Connection coon = null;
 			PreparedStatement st = null;
 			ResultSet rs = null;
-			//temp1��������
+			//temp1????????
 			try {
 				
-				System.out.println("�����������");
-				//temp2��ȡ����
+				System.out.println("???????????");
+				//temp2???????
 				coon = DButils.getConnection();
-				//temp3��ȡstatement
+				//temp3???statement
 				String sql = "select * from product";
 				st = coon.prepareStatement(sql);
 				
 				 rs = st.executeQuery();
-				 System.out.println("sql���ִ�����");
+				 System.out.println("sql?????????");
 				 while(rs.next()) {
 					int id =  rs.getInt("id");
 					String name = rs.getString("name");
@@ -124,7 +122,7 @@ public class productDaoMySql implements ProductDao {
 	
 
 	/*
-	 * �޸�����
+	 * ???????
 	 * */
 	public boolean updateProduct(Product product) {
 		
@@ -166,13 +164,13 @@ public class productDaoMySql implements ProductDao {
 	}
 
 	/*
-	 * ɾ������
+	 * ???????
 	 * */
 	public boolean deleteProduct(int id) {
 		Connection coon = null;
 		PreparedStatement st = null;
 		try {
-			System.out.println("�����������");
+			System.out.println("???????????");
 			coon = DButils.getConnection();
 			
 			
@@ -199,26 +197,26 @@ public class productDaoMySql implements ProductDao {
 		
 	}
 
-	//ͨ��ID����
+	//???ID????
 	public Product findProductById(int id) {
 		
 		Product product =new Product();
 		Connection coon = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		//temp1��������
+		//temp1????????
 		try {
 			
-			System.out.println("�����������");
-			//temp2��ȡ����
+			System.out.println("???????????");
+			//temp2???????
 			coon = DButils.getConnection();
-			//temp3��ȡstatement
+			//temp3???statement
 			String sql = "select * from product where id=?";
 			st = coon.prepareStatement(sql);
 			st.setInt(1, id);
 			
 			 rs = st.executeQuery();
-			 System.out.println("sql���ִ�����");
+			 System.out.println("sql?????????");
 			 if(rs.first()) {
 					product.setId(rs.getInt("id"));
 					product.setName(rs.getString("name"));
@@ -244,13 +242,13 @@ public class productDaoMySql implements ProductDao {
 	
 		return product;
 	}
-	//ɾ�����
+	//??????
 	public void deletestock(Product product) {
 		
 		Connection coon = null;
 		PreparedStatement st = null;
 		try {
-			System.out.println("�����������");
+			System.out.println("???????????");
 			coon = DButils.getConnection();
 			String sql ="update product set stock= ? where id=? ";
 			st = coon.prepareStatement(sql);
@@ -277,22 +275,22 @@ public class productDaoMySql implements ProductDao {
 
 
 
-	//��ҳ��ѯ
+	//??????
 	public PageModel<Product> findProductByPage(int pageNo, int pageSize) {
 		PageModel<Product> pageModel = new PageModel<Product>();
 		
 			Connection coon = null;
 			PreparedStatement st = null;
 			ResultSet rs = null;
-			//temp1��������
+			//temp1????????
 			try {
 				coon = DButils.getConnection();
 				String sqlcount = "select count(id) from product";
 				st = coon.prepareStatement(sqlcount);
 				rs = st.executeQuery();
 				if(rs.next()) {
-					int count = rs.getInt(1);//�ܵ����ݼ�¼��
-					//�����м�ҳ
+					int count = rs.getInt(1);//???????????
+					//?????м??
 					
 					int totalPage = (count%pageSize)==0?count/pageSize:(count/pageSize+1);
 					pageModel.setTotalpage(totalPage);
@@ -300,10 +298,10 @@ public class productDaoMySql implements ProductDao {
 				
 				
 				
-				System.out.println("�����������");
-				//temp2��ȡ����
+				System.out.println("???????????");
+				//temp2???????
 				
-				//temp3��ȡstatement
+				//temp3???statement
 				String sql = "select * from product limit ?,? ";
 				
 				st = coon.prepareStatement(sql);
@@ -311,7 +309,7 @@ public class productDaoMySql implements ProductDao {
 				st.setInt(2, pageSize); 
 				rs = st.executeQuery();
 				List<Product> products = new ArrayList<Product>(); 
-				 System.out.println("sql���ִ�����");
+				 System.out.println("sql?????????");
 				 while(rs.next()) {
 					int id =  rs.getInt("id");
 					String name = rs.getString("name");

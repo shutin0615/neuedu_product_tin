@@ -15,15 +15,24 @@ import com.neuedu.entity.Cart;
 import com.neuedu.entity.Product;
 import com.neuedu.entity.UserOrder;
 import com.neuedu.entity.UserOrderItem;
+import com.neuedu.mybatisImplDao.CartMybatis;
+import com.neuedu.mybatisImplDao.OrderItemMybatis;
+import com.neuedu.mybatisImplDao.OrderMybatis;
+import com.neuedu.mybatisImplDao.productDaoImpl;
 import com.neuedu.service.OrderService;
 import com.neuedu.utils.Utils;
 
 public class OrderServiceImpl implements OrderService {
 
-	OrderDao od = new OrderDaoImpl();// 调用订单Dao层
+	OrderDao od = new OrderMybatis();// 调用订单Dao层
+	OrderItemDao oid = new OrderItemMybatis(); // 调用订单明细Dao层
+	CartDao cd = new CartMybatis();
+	ProductDao pd = new productDaoImpl();
+
+	/*OrderDao od = new OrderDaoImpl();// 调用订单Dao层
 	OrderItemDao oid = new OrderItemDaoImpl(); // 调用订单明细Dao层
 	CartDao cd = new CartDaoImpl();
-	productDaoMySql pd = new productDaoMySql();
+	productDaoMySql pd = new productDaoMySql();*/
 
 	/* 创建订单 */
 	public boolean createOrder() {
@@ -58,8 +67,10 @@ public class OrderServiceImpl implements OrderService {
 			Cart cart = carts.get(i);
 			Product product = cart.getProduct();
 			int leftStock = product.getStock() - cart.getNum();
+
 			product.setStock(leftStock);
-			pd.deletestock(product);
+			pd.updateProduct(product);
+		/*	pd.deletestock(product);*/
 		}
 		
 		

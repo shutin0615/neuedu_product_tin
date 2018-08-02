@@ -5,11 +5,12 @@ import java.util.List;
 import com.neuedu.dao.CartDao;
 import com.neuedu.dao.impl.CartDaoImpl;
 import com.neuedu.entity.Cart;
+import com.neuedu.mybatisImplDao.CartMybatis;
 import com.neuedu.service.CartService;
 
 public class CartServiceImpl implements CartService {
 
-	CartDao cd = new CartDaoImpl();
+	CartDao cd = new CartMybatis();
 
 	@Override
 	public boolean addCart(Cart cart) {

@@ -44,8 +44,8 @@ public class Product implements Serializable {
 		this.image = image;
 
 	}
-	
-	
+
+
 	public Product(int id, String name, String detail, double price, String image, int stock) {
 		super();
 		this.id = id;
@@ -55,6 +55,7 @@ public class Product implements Serializable {
 		this.image = image;
 		this.stock = stock;
 	}
+
 
 	public Product() {
 		super();

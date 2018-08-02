@@ -30,7 +30,7 @@ public class CartDaoImpl implements CartDao {
 			int productid = cart.getProduct().getId();
 			int productnum = cart.getNum();
 
-			String sql = "insert into cart(productid,productnum)values(?,?)";
+			String sql = "insert into cart(productid,num)values(?,?)";
 			st = coon.prepareStatement(sql);
 			st.setInt(1, productid);
 			st.setInt(2, productnum);
@@ -83,7 +83,7 @@ public class CartDaoImpl implements CartDao {
 				cart.setProductid(productid);
 				cart.setId(rs.getInt("id"));
 				cart.setProduct(product);
-				cart.setNum(rs.getInt("productnum"));
+				cart.setNum(rs.getInt("num"));
 				
 				carts.add(cart);
 					
@@ -187,7 +187,7 @@ public class CartDaoImpl implements CartDao {
 				if(id==rs.getInt("id")) {
 					cart = new Cart();
 					int _id = rs.getInt("id");
-					int num = rs.getInt("productnum");
+					int num = rs.getInt("num");
 					cart.setId(_id);
 					cart.setNum(num);
 					

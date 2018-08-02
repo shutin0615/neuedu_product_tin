@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties resource="shop.properties"/>
+
+    <!--使用LOG4J日志-->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <environments default="development">
+
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/neuedu/userMapper.xml"/>
+        <mapper resource="com/neuedu/productMapper.xml"/>
+        <mapper resource="com/neuedu/cartMapper.xml"/>
+        <mapper resource="com/neuedu/ordersMapper.xml"/>
+        <mapper resource="com/neuedu/OorderItemMapper.xml"/>
+    </mappers>
+
+</configuration>

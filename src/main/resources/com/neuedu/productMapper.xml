@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--SET name=#{name},detail=#{detail},price=#{price},image=#{image},stock=#{stock}-->
+<mapper namespace="com.neuedu.entity.Product">
+
+    <select id="findProduct" resultType="com.neuedu.entity.Product" >
+        SELECT * FROM product
+    </select>
+
+   <delete id="deleteProduct" parameterType="int">
+       DELETE FROM product WHERE id=#{id}
+   </delete>  
+    
+    <insert id="addProduct"  parameterType="com.neuedu.entity.Product">
+       INSERT INTO product(name,detail,price,image,stock)VALUES (#{name},#{detail},#{price},#{image},#{stock})
+    </insert>
+
+    <update id="updateProduct"  parameterType="com.neuedu.entity.Product">
+            UPDATE product
+
+        <set>
+           <if test="name!=null">name=#{name},</if>
+           <if test="detail!=null">detail=#{detail},</if>
+           <if test="price &gt; 0">price=#{price},</if>
+           <if test="image!=null">detail=#{image},</if>
+           <if test="stock &gt; 0">detail=#{stock},</if>
+       </set>
+
+        WHERE id=#{id}
+</update>
+
+    <select id="findProudctById" resultType="com.neuedu.entity.Product" parameterType="int">
+        SELECT * FROM product WHERE id=#{id}
+    </select>
+
+
+</mapper>
+
+        <!-- resultType返回值类型-->

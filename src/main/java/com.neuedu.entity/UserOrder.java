@@ -2,6 +2,7 @@ package com.neuedu.entity;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class UserOrder implements Serializable {
 
@@ -14,6 +15,17 @@ public class UserOrder implements Serializable {
 	private int user_id;
 	private long create_time;
 	private double payment;
+	private List<UserOrderItem> orderItemList;
+
+	public List<UserOrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(List<UserOrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
+
 
 	public UserOrder(int id, long order_no, int user_id, long create_time, double payment) {
 		super();
